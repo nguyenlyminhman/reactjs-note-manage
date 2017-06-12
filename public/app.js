@@ -36,17 +36,18 @@ var List = React.createClass({
 
 var InputDiv = React.createClass({
     send() {
+        //lấy giá trị mảng từ trên server gửi xuống
         $.post("/add", {
-            note: this.refs.txte.value
-        }, function (data) {
+            note: this.refs.txte.value //lấy giá trị trong textfield txte gán cho biến node
+        }, function (data) { 
             list.setState({ mang: data });
         });
-        list.setState({ mang: list.state.mang.concat(this.refs.txte.value) });
+        //list.setState({ mang: list.state.mang.concat(this.refs.txte.value) });
         //gỡ bỏ form div-add sau khi nhập xong !
-        //ReactDOM.unmountComponentAtNode(document.getElementById("div-add"));
+        ReactDOM.unmountComponentAtNode(document.getElementById("div-add"));
 
     },
-    render: function () {
+    render: function () { 
         return <div>
             <input type="text" ref="txte" placeholder="enter your note" />
             {/*gọi phương thưc send*/}
@@ -54,11 +55,11 @@ var InputDiv = React.createClass({
         </div>
     }
 });
-
+//phương thức thêm thẻ div này vào thẻ div có id div-add
 function addDiv() {
     ReactDOM.render(<InputDiv />, document.getElementById("div-add"));
 }
-
+//hiển thị ra trang web.
 ReactDOM.render(
     <div>
         <h1> List Management</h1>
