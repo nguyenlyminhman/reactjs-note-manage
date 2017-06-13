@@ -22,3 +22,9 @@ app.post("/add", parser, function (req, res) {
     mang.push(newNode);
     res.send(mang);
 });
+
+app.post("/delete", parser, (req, res)=> {
+    var id = req.body.idDel;
+    mang.splice(id, 1);
+    res.send(mang);
+});

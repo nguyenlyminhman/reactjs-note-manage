@@ -1,8 +1,16 @@
 var list;
 var Note = React.createClass({
+    delete() {
+        $.post("/delete", { idDel: this.props.id }, function (data) {
+            list.setState({ mang: data });
+        });
+    },
     render: function () {
         return <div className="div-note">
-            {this.props.children}
+            <p>
+                {this.props.children}
+            </p>
+            <button onClick={this.delete}>Delete</button>
         </div>
     }
 });
@@ -20,7 +28,7 @@ var List = React.createClass({
                 <button onClick={addDiv}> Add node </button>
                 {
                     this.state.mang.map(function (note, index) {
-                        return <Note key={index}>{note} </Note>
+                        return <Note key={index} id={index}>{note} </Note>
                     })
                 }
             </div>
@@ -39,7 +47,7 @@ var InputDiv = React.createClass({
         //lấy giá trị mảng từ trên server gửi xuống
         $.post("/add", {
             note: this.refs.txte.value //lấy giá trị trong textfield txte gán cho biến node
-        }, function (data) { 
+        }, function (data) {
             list.setState({ mang: data });
         });
         //list.setState({ mang: list.state.mang.concat(this.refs.txte.value) });
@@ -47,7 +55,7 @@ var InputDiv = React.createClass({
         ReactDOM.unmountComponentAtNode(document.getElementById("div-add"));
 
     },
-    render: function () { 
+    render: function () {
         return <div>
             <input type="text" ref="txte" placeholder="enter your note" />
             {/*gọi phương thưc send*/}
