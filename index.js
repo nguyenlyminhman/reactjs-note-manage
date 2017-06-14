@@ -28,3 +28,9 @@ app.post("/delete", parser, (req, res)=> {
     mang.splice(id, 1);
     res.send(mang);
 });
+
+app.post("/update", parser, (req, res)=> {
+    var id = req.body.idEdit;
+    mang[id] = req.body.editContent;
+    res.send(mang);
+});
